@@ -1,0 +1,89 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+    Node(int number)
+    {
+        data = number;
+        next = NULL;
+    }//paramertised constructor
+};
+
+Node* creation(vector<int> arr, int n)
+{
+    Node* head=new Node(arr[0]);
+    Node* temp=head;
+    for(int i=1;i<n;i++)
+    {
+        Node* curr= new Node(arr[i]);
+        temp->next=curr;
+        temp=temp->next;//mark;
+    }
+    return head;
+}
+
+void print(Node* head){
+    Node* temp = head;
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+
+Node* insertionAtBegin(Node* head,int num){
+    Node* temp = new Node(num);
+    temp->next=head;
+    head=temp;
+    return head;
+}
+
+Node* insertAtEnd(Node* head,int num2){
+    Node* temp =new Node(num2);
+    Node* curr=head;
+    while(curr->next!=NULL){
+        curr=curr->next;
+    }
+    curr->next=temp;
+    return head;
+}
+
+Node* insertAtPos(Node* head,int num3,int pos){
+    Node* temp= new Node(num3);
+    Node* curr=head;
+    for(int i=0;i<pos-2;i++){
+        curr=curr->next;
+    }
+    temp->next=curr->next;
+    curr->next=temp;
+    return head;
+}
+
+int main(){
+    int n;
+    cin>>n;
+    vector<int> arr(n);
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+    Node* head=creation(arr,n);
+    print(head);
+    cout<<endl;
+    int num1;
+    cin>>num1;
+    head=insertionAtBegin(head,num1);
+    print(head);
+    cout<<endl;
+    int num2;
+    cin>>num2;
+    head=insertAtEnd(head,num2);
+    print(head);
+    int num3,pos;
+    cin>>num3>>pos;
+    head=insertAtPos(head,num3,pos);
+    print(head);
+    return 0;
+}
