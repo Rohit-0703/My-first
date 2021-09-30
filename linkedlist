@@ -61,6 +61,41 @@ Node* insertAtPos(Node* head,int num3,int pos){
     return head;
 }
 
+Node* deletionAtStart(Node* head){
+    Node* temp=head;
+    head=head->next;
+    free(temp);
+    return head;
+}
+
+Node* deletionAtEnd(Node* head){
+    if(head->next==NULL){
+        free(head);
+        return NULL;
+    }
+    Node* temp=head;
+
+    while(temp->next->next!=NULL){
+        temp=temp->next;
+    }
+    free(temp->next);
+    temp->next=NULL;
+    return head;
+}
+
+Node* deletionAtPos(Node*head,int pos){
+    Node* temp=head;
+    for(int i=0;i<pos-2;i++)
+    {
+        temp=temp->next;
+    }
+    Node* curr=temp->next;
+    temp->next=temp->next->next;
+    free(curr);
+    return head;
+}
+
+
 int main(){
     int n;
     cin>>n;
@@ -72,18 +107,29 @@ int main(){
     Node* head=creation(arr,n);
     print(head);
     cout<<endl;
-    int num1;
-    cin>>num1;
-    head=insertionAtBegin(head,num1);
-    print(head);
+    // int num1;
+    // cin>>num1;
+    // head=insertionAtBegin(head,num1);
+    // print(head);
+    // cout<<endl;
+    // int num2;
+    // cin>>num2;
+    // head=insertAtEnd(head,num2);
+    // print(head);
+    // int num3,pos;
+    // cin>>num3>>pos;
+    // head=insertAtPos(head,num3,pos);
+    // print(head);
+    head=deletionAtStart(head);
     cout<<endl;
-    int num2;
-    cin>>num2;
-    head=insertAtEnd(head,num2);
     print(head);
-    int num3,pos;
-    cin>>num3>>pos;
-    head=insertAtPos(head,num3,pos);
+    head=deletionAtEnd(head);
+    cout<<endl;
+    print(head);
+    int pos;
+    cout<<endl;
+    cin>>pos;
+    head=deletionAtPos(head,pos);
     print(head);
     return 0;
 }
